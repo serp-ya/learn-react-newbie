@@ -12,7 +12,7 @@ function CommentsListItems({comments}) {
       <Comment comment = {comment} />
     </li>
   ));
-  
+
   return (
     <div>
       {commentsListItems}
