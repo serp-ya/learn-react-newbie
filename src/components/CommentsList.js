@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import Comment from './Comment';
+import CommentsListItems from './CommentsListItems';
 import toggleOpen from '../decorators/toggleOpen';
 
 CommentsList.defaultProps = {
@@ -16,21 +16,17 @@ function CommentsList({comments, isOpen, toggleOpen}) {
     return <p>Have no any comments</p>;
   }
 
-  const commentsListItems = comments.map(comment => (
-    <li key={comment.id}>
-      <Comment comment={comment} />
-    </li>
-  ));
-
   return (
     <div>
-
       <button onClick = {toggleOpen}>
         {isOpen ? 'Close comments' : 'Show comments'}
       </button>
 
-      {isOpen && (<ul>{commentsListItems}</ul>)}
-
+      {isOpen && (
+        <ul>
+          <CommentsListItems comments = {comments}/>
+        </ul>
+      )}
     </div>
   )
 }

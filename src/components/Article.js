@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import CommentsList from './CommentsList';
 import toggleOpen from '../decorators/toggleOpen';
@@ -19,7 +19,7 @@ function Article({article, isOpen, toggleOpen}) {
     <div>
       <h3>{title}</h3>
 
-      <button onClick={toggleOpen}>
+      <button onClick = {toggleOpen}>
         {isOpen ? 'close' : 'open'}
       </button>
 
