@@ -1,10 +1,21 @@
-import React from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function Comment({comment}) {
+Comment.propTypes = {
+  comment: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    user: PropTypes.string.isRequired,
+    text: PropTypes.string
+  })
+};
+
+function Comment({comment}) {
   return (
-    <li>
+    <div>
       <h5>{comment.user}</h5>
       <p>{comment.text}</p>
-    </li>
+    </div>
   )
 }
+
+export default Comment;
