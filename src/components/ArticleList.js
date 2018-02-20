@@ -1,16 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Article from './Article';
+import accordeon from '../decorators/accordeon';
 
 ArticleList.propTypes = {
-  articles: PropTypes.array.isRequired
+    articles: PropTypes.array.isRequired
 };
 
-export default function ArticleList({articles}) {
+function ArticleList({articles, openArticleId, toggleOpen}) {
     const articleElements = articles.map(article =>
-      <li key = {article.id}>
-          <Article article = {article}/>
-      </li>
+        <li key = {article.id}>
+            <Article
+                article = {article}
+                toggleOpen = {toggleOpen(article.id)}
+                isOpen = {article.id === openArticleId}
+            />
+        </li>
     );
 
     return (
@@ -19,3 +24,5 @@ export default function ArticleList({articles}) {
         </ul>
     )
 }
+
+export default accordeon(ArticleList);

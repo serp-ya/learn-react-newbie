@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CommentsList from './CommentsList';
-import toggleOpen from '../decorators/toggleOpen';
 
 Article.propTypes = {
   article: PropTypes.shape({
@@ -12,7 +11,7 @@ Article.propTypes = {
   }).isRequired
 };
 
-function Article({article, isOpen, toggleOpen}) {
+export default function Article({article, isOpen, toggleOpen}) {
   const {title, text, comments} = article;
 
   return (
@@ -32,5 +31,3 @@ function Article({article, isOpen, toggleOpen}) {
     </div>
   )
 }
-
-export default toggleOpen(Article);
