@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CommentsList from './CommentsList';
+import { CSSTransitionGroup } from 'react-transition-group';
+
+import './article.animation.css';
 
 Article.propTypes = {
   article: PropTypes.shape({
@@ -24,12 +27,18 @@ export default function Article({article, isOpen, toggleOpen}) {
         {isOpen ? 'close' : 'open'}
       </button>
 
-      {isOpen && (
-        <section>
-          {text}
-          <CommentsList comments = {comments}/>
-        </section>
-      )}
+      <CSSTransitionGroup
+        transitionName = 'article'
+        transitionEnterTimeout = {500}
+        transitionLeaveTimeout = {300}
+      >
+        {isOpen && (
+          <section>
+            {text}
+            <CommentsList comments = {comments}/>
+          </section>
+        )}
+      </CSSTransitionGroup>
     </div>
   )
 }
