@@ -7,13 +7,13 @@ ArticleList.propTypes = {
     articles: PropTypes.array.isRequired
 };
 
-function ArticleList({articles, openArticleId, toggleOpen}) {
+function ArticleList({articles, openItemId, toggleOpen}) {
     const articleElements = articles.map(article =>
         <li key = {article.id}>
             <Article
                 article = {article}
                 toggleOpen = {toggleOpen(article.id)}
-                isOpen = {article.id === openArticleId}
+                isOpen = {article.id === openItemId}
             />
         </li>
     );

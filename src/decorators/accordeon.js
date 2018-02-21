@@ -3,21 +3,21 @@ import React, {Component} from 'react';
 export default (OriginalComponent) => (
     class Accordeon extends Component {
         state = {
-            openArticleId: null
+            openItemId: null
         };
 
         render() {
             return <OriginalComponent
                 {...this.props}
                 {...this.state}
-                toggleOpen = {this.toggleOpenArticle}
+                toggleOpen = {this.toggleOpenClose}
             />
         };
 
-        toggleOpenArticle = articleId => () => {
-            const {openArticleId} = this.state;
+        toggleOpenClose = articleId => () => {
+            const {openItemId} = this.state;
             this.setState({
-                openArticleId: (openArticleId !== articleId) ? articleId : null
+                openItemId: (openItemId !== articleId) ? articleId : null
             });
         };
     }
