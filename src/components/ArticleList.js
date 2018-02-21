@@ -4,25 +4,28 @@ import Article from './Article';
 import accordeon from '../decorators/accordeon';
 
 ArticleList.propTypes = {
-    articles: PropTypes.array.isRequired
+  articles: PropTypes.array.isRequired,
+  // from accordeon
+  openItemId: PropTypes.string,
+  toggleOpen: PropTypes.func
 };
 
 function ArticleList({articles, openItemId, toggleOpen}) {
-    const articleElements = articles.map(article =>
-        <li key = {article.id}>
-            <Article
-                article = {article}
-                toggleOpen = {toggleOpen(article.id)}
-                isOpen = {article.id === openItemId}
-            />
-        </li>
-    );
+  const articleElements = articles.map(article =>
+    <li key={article.id}>
+      <Article
+        article={article}
+        toggleOpen={toggleOpen(article.id)}
+        isOpen={article.id === openItemId}
+      />
+    </li>
+  );
 
-    return (
-        <ul>
-            {articleElements}
-        </ul>
-    )
+  return (
+    <ul>
+      {articleElements}
+    </ul>
+  )
 }
 
 export default accordeon(ArticleList);
