@@ -8,7 +8,9 @@ Article.propTypes = {
     title: PropTypes.string.isRequired,
     text: PropTypes.string,
     comments: PropTypes.array
-  }).isRequired
+  }).isRequired,
+  isOpen: PropTypes.bool,
+  toggleOpen: PropTypes.func
 };
 
 export default function Article({article, isOpen, toggleOpen}) {
