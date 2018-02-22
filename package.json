@@ -21,9 +21,12 @@
   },
   "dependencies": {
     "css-loader": "^0.28.9",
+    "moment": "^2.20.1",
     "prop-types": "^15.6.0",
     "react": "^15.5.0",
+    "react-day-picker": "^7.0.7",
     "react-dom": "^15.5.0",
+    "react-helmet": "^5.2.0",
     "react-select": "1.0.0-rc.5",
     "react-transition-group": "1.2.0",
     "style-loader": "^0.20.2"

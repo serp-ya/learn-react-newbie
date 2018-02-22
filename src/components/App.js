@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ArticleList from './ArticleList';
+import Calendar from './Calendar';
+
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+
+import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
 
 export default class App extends Component {
   // static propTypes = {
@@ -22,6 +27,7 @@ export default class App extends Component {
 
     return (
       <div>
+        <Calendar />
         <Select options = {options} value = {selection} onChange = {this.changeSelection} />
         <ArticleList articles = { this.props.articles }/>
       </div>
