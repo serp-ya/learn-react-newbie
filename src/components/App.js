@@ -7,13 +7,10 @@ import Counter from './Counter';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
-import DayPicker from 'react-day-picker';
-import 'react-day-picker/lib/style.css';
-
 export default class App extends Component {
-  // static propTypes = {
-  //
-  // };
+  static propTypes = {
+
+  };
 
   state = {
     selection: null
