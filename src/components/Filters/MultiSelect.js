@@ -40,3 +40,12 @@ export default connect((state) => (
 ),
 {filterSelectArticles})
 (MultiSelect);
+
+
+export function checkSelectedFilter(selectedArticles, currentArticle) {
+  if(selectedArticles.length) {
+    return selectedArticles.some(item => item.value === currentArticle.id);
+  }
+
+  return true;
+}

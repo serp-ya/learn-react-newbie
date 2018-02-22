@@ -136,3 +136,20 @@ export default connect((state) => (
 ),
 {filterDateArticles})
 (Calendar);
+
+
+export function checkDateFilter(selectedDates, currentArticle) {
+  const articleDate = new Date(currentArticle.date);
+  let fromCheck = true;
+  let toCheck = true;
+
+  if (selectedDates.from) {
+    fromCheck = articleDate > selectedDates.from;
+  }
+
+  if (selectedDates.to) {
+    toCheck = articleDate < selectedDates.to;
+  }
+
+  return fromCheck && toCheck;
+}
