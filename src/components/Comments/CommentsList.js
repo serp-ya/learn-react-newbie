@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CommentsListItems from './CommentsListItems';
 import AddCommentForm from './AddComentForm';
-import toggleOpen from '../decorators/toggleOpen';
+import toggleOpen from '../../decorators/toggleOpen';
 
 CommentsList.defaultProps = {
     comments: []

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Article from './Article';
-import accordeon from '../decorators/accordeon';
+import accordeon from '../../decorators/accordeon';
 import { connect } from 'react-redux';
 
 ArticleList.propTypes = {

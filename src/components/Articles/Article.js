@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import CommentsList from './CommentsList';
+import CommentsList from '../Comments/CommentsList';
 import { CSSTransitionGroup } from 'react-transition-group';
-import { deleteArticle } from '../ActionCreators';
+import { deleteArticle } from '../../ActionCreators/index';
 
 import './article.animation.css';
 
