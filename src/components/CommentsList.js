@@ -5,34 +5,39 @@ import AddCommentForm from './AddComentForm';
 import toggleOpen from '../decorators/toggleOpen';
 
 CommentsList.defaultProps = {
-  comments: []
+    comments: []
 };
 
 CommentsList.propTypes = {
-  comments: PropTypes.array
+    comments: PropTypes.array
 };
 
 function CommentsList({comments, isOpen, toggleOpen}) {
-  if (!comments.length) {
-    return <p>Have no any comments</p>;
-  }
-
-  return (
-    <div>
-      <button onClick = {toggleOpen}>
-        {isOpen ? 'Close comments' : 'Show comments'}
-      </button>
-
-      {isOpen && (
+    return (
         <div>
-            <ul>
-                <CommentsListItems comments = {comments}/>
-            </ul>
-            <AddCommentForm />
+
+            {!comments.length && (
+                <div>
+                    <p>Have no any comments</p>
+                    <AddCommentForm/>
+                </div>
+            )}
+
+            {!!comments.length &&  (
+                <div>
+                    <button onClick={toggleOpen}>
+                        {isOpen ? 'Close comments' : 'Show comments'}
+                    </button>
+                    {isOpen && (
+                        <ul>
+                            <CommentsListItems comments={comments}/>
+                            <AddCommentForm/>
+                        </ul>
+                    )}
+                </div>
+            )}
         </div>
-      )}
-    </div>
-  )
+    )
 }
 
 export default toggleOpen(CommentsList);
