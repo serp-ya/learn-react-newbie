@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ArticleList from './ArticleList';
 import Calendar from './Calendar';
+import Counter from './Counter';
 
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
@@ -27,6 +28,7 @@ export default class App extends Component {
 
     return (
       <div>
+        <Counter />
         <Calendar />
         <Select options = {options} value = {selection} onChange = {this.changeSelection} />
         <ArticleList articles = { this.props.articles }/>
