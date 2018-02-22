@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CommentsListItems from './CommentsListItems';
+import AddCommentForm from './AddComentForm';
 import toggleOpen from '../decorators/toggleOpen';
 
 CommentsList.defaultProps = {
@@ -23,9 +24,12 @@ function CommentsList({comments, isOpen, toggleOpen}) {
       </button>
 
       {isOpen && (
-        <ul>
-          <CommentsListItems comments = {comments}/>
-        </ul>
+        <div>
+            <ul>
+                <CommentsListItems comments = {comments}/>
+            </ul>
+            <AddCommentForm />
+        </div>
       )}
     </div>
   )
