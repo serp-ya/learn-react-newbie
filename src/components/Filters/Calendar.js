@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
-import moment from 'moment';
-import Helmet from 'react-helmet';
+import {connect} from 'react-redux';
+import {filterDateArticles} from '../../ActionCreators';
 
 import DayPickerInput from 'react-day-picker/DayPickerInput';
+import {formatDate, parseDate} from 'react-day-picker/moment';
+import moment from 'moment';
+import Helmet from 'react-helmet';
 import 'react-day-picker/lib/style.css';
 
-import {formatDate, parseDate} from 'react-day-picker/moment';
-
-export default class Example extends React.Component {
+class Calendar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -40,15 +41,22 @@ export default class Example extends React.Component {
         this.focusTo();
       }
     });
+    setTimeout(() => {
+      this.props.filterDateArticles(this.state);
+    });
   };
 
   handleToChange = (to) => {
     this.setState({to}, this.showFromMonth);
+    setTimeout(() => {
+      this.props.filterDateArticles(this.state);
+    });
   };
 
   render() {
     const {from, to} = this.state;
     const modifiers = {start: from, end: to};
+
     return (
       <div className="InputFromTo" style={{'paddingBottom': '30px'}}>
         <h3>Calendar</h3>
@@ -122,3 +130,9 @@ export default class Example extends React.Component {
     );
   }
 }
+
+export default connect((state) => (
+  {filtersState: state.filtersState}
+),
+{filterDateArticles})
+(Calendar);

@@ -1,4 +1,7 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {filterSelectArticles} from '../../ActionCreators';
+
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
@@ -7,7 +10,12 @@ class MultiSelect extends Component {
     selection: null
   };
 
-  changeSelection = (selection) => this.setState({ selection });
+  changeSelection = (selection) => {
+    this.setState({ selection });
+    setTimeout(() => {
+      this.props.filterSelectArticles(this.state.selection);
+    });
+  };
 
   render() {
     const { selection } = this.state;
@@ -27,4 +35,8 @@ class MultiSelect extends Component {
   }
 }
 
-export default MultiSelect;
+export default connect((state) => (
+  {filtersState: state.filtersState}
+),
+{filterSelectArticles})
+(MultiSelect);
