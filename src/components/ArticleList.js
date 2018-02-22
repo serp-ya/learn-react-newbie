@@ -2,9 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Article from './Article';
 import accordeon from '../decorators/accordeon';
+import { connect } from 'react-redux';
 
 ArticleList.propTypes = {
+  // from connect
   articles: PropTypes.array.isRequired,
+
   // from accordeon
   openItemId: PropTypes.string,
   toggleOpen: PropTypes.func
@@ -28,4 +31,6 @@ function ArticleList({articles, openItemId, toggleOpen}) {
   )
 }
 
-export default accordeon(ArticleList);
+export default connect(state => (
+    { articles: state.articles }
+))(accordeon(ArticleList));

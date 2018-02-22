@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import ArticleList from './ArticleList';
 import Calendar from './Calendar';
 import Counter from './Counter';
@@ -8,9 +7,6 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
 export default class App extends Component {
-  static propTypes = {
-
-  };
 
   state = {
     selection: null
@@ -18,17 +14,18 @@ export default class App extends Component {
 
   render() {
     const { selection } = this.state;
-    const options = this.props.articles.map(article => ({
-      label: article.title,
-      value: article.id
-    }));
+    // TODO: прочитать в компоненте Select articles из стора
+    // const options = this.props.articles.map(article => ({
+    //   label: article.title,
+    //   value: article.id
+    // }));
 
     return (
       <div>
         <Counter />
         <Calendar />
-        <Select options = {options} value = {selection} onChange = {this.changeSelection} />
-        <ArticleList articles = { this.props.articles }/>
+        {/*<Select options = {options} value = {selection} onChange = {this.changeSelection} />*/}
+        <ArticleList />
       </div>
     );
   }
