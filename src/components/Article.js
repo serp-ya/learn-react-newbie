@@ -1,44 +1,60 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CommentsList from './CommentsList';
 import { CSSTransitionGroup } from 'react-transition-group';
+import { deleteArticle } from '../ActionCreators';
 
 import './article.animation.css';
 
-Article.propTypes = {
-  article: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    text: PropTypes.string,
-    comments: PropTypes.array
-  }).isRequired,
-  isOpen: PropTypes.bool,
-  toggleOpen: PropTypes.func
-};
+class Article extends PureComponent{
+    static propTypes = {
+        article: PropTypes.shape({
+            id: PropTypes.string.isRequired,
+            title: PropTypes.string.isRequired,
+            text: PropTypes.string,
+            comments: PropTypes.array
+        }).isRequired,
+        isOpen: PropTypes.bool,
+        toggleOpen: PropTypes.func
+    };
 
-export default function Article({article, isOpen, toggleOpen}) {
-  const {title, text, comments} = article;
+    handleDelete = () => {
+        const { deleteArticle, article } = this.props;
+        deleteArticle(article.id);
+    };
 
-  return (
-    <div>
-      <h3>{title}</h3>
+    render() {
+        const {article, isOpen, toggleOpen} = this.props;
+        const {title, text, comments} = article;
 
-      <button onClick = {toggleOpen}>
-        {isOpen ? 'close' : 'open'}
-      </button>
+        return (
+            <div>
+                <h3>{title}</h3>
 
-      <CSSTransitionGroup
-        transitionName = 'article'
-        transitionEnterTimeout = {500}
-        transitionLeaveTimeout = {300}
-      >
-        {isOpen && (
-          <section>
-            {text}
-            <CommentsList comments = {comments}/>
-          </section>
-        )}
-      </CSSTransitionGroup>
-    </div>
-  )
+                <button onClick = {toggleOpen}>
+                    {isOpen ? 'close' : 'open'}
+                </button>
+
+                <button onClick = {this.handleDelete}>
+                    Delete me
+                </button>
+
+                <CSSTransitionGroup
+                    transitionName = 'article'
+                    transitionEnterTimeout = {500}
+                    transitionLeaveTimeout = {300}
+                >
+                    {isOpen && (
+                        <section>
+                            {text}
+                            <CommentsList comments = {comments}/>
+                        </section>
+                    )}
+                </CSSTransitionGroup>
+            </div>
+        )
+    }
 }
+
+export default connect(null, { deleteArticle })(Article)
