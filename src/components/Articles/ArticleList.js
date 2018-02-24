@@ -16,13 +16,8 @@ ArticleList.propTypes = {
   toggleOpen: PropTypes.func
 };
 
-function ArticleList({articles, openItemId, toggleOpen, filtersState}) {
-  const {selectArticles, dateArticles} = filtersState;
-  const filteredArticles = articles.filter(article => {
-    return checkSelectedFilter(selectArticles, article) && checkDateFilter(dateArticles, article);
-  });
-
-  const articleElements = filteredArticles.map(article =>
+function ArticleList({articles, openItemId, toggleOpen}) {
+  const articleElements = articles.map(article =>
     <li key={article.id}>
       <Article
         article={article}
@@ -39,9 +34,11 @@ function ArticleList({articles, openItemId, toggleOpen, filtersState}) {
   )
 }
 
-export default connect(state => (
-    {
-      articles: state.articles,
-      filtersState: state.filtersState
-    }
-))(accordeon(ArticleList));
+export default connect(state => {
+  const { articles, filtersState: {selectArticles, dateArticles} } = state;
+  const filteredArticles = articles.filter(article => {
+    return checkSelectedFilter(selectArticles, article) && checkDateFilter(dateArticles, article);
+  });
+
+  return { articles: filteredArticles }
+})(accordeon(ArticleList));
