@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {increment} from "../../ActionCreators";
 
 class Counter extends Component {
+
   static propTypes = {
     counter: PropTypes.number,
     increment: PropTypes.func.isRequired

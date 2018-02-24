@@ -9,6 +9,7 @@ import Helmet from 'react-helmet';
 import 'react-day-picker/lib/style.css';
 
 class Calendar extends Component {
+
   componentWillUnmount() {
     clearTimeout(this.timeout);
   };

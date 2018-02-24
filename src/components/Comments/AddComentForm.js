@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 export default class AddCommentForm extends Component {
+
     state = {
         title: '',
         comment: ''

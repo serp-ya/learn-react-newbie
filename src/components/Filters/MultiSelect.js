@@ -6,6 +6,7 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
 class MultiSelect extends Component {
+
   changeSelection = (selection) => {
     this.props.filterSelectArticles(selection);
   };
