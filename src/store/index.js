@@ -1,7 +1,10 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import reducer from '../reducer';
 
-const store = createStore(reducer);
+import middlewares from '../middlewares/';
+
+const enhancer = applyMiddleware(...middlewares);
+const store = createStore(reducer, {}, enhancer);
 
 // dev only
 // TODO: clean code before production
