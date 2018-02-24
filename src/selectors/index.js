@@ -1,3 +1,7 @@
 import filterArticles from './filterArticles';
+import commentSelectorFactory from './commentSelector';
 
-export const filterArticlesSelector = filterArticles;
+export default {
+  filterArticles,
+  commentSelectorFactory
+};
