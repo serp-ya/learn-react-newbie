@@ -42,7 +42,7 @@ export default connect((state) => (
 (MultiSelect);
 
 
-export function checkSelectedFilter(selectedArticles, currentArticle) {
+export function checkSelectedFilter(selectedArticles = [], currentArticle) {
   if(selectedArticles.length) {
     return selectedArticles.some(item => item.value === currentArticle.id);
   }

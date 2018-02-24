@@ -138,7 +138,7 @@ export default connect((state) => (
 (Calendar);
 
 
-export function checkDateFilter(selectedDates, currentArticle) {
+export function checkDateFilter(selectedDates = {}, currentArticle = {}) {
   const articleDate = new Date(currentArticle.date);
   let fromCheck = true;
   let toCheck = true;
