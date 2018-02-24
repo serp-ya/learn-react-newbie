@@ -1,18 +1,22 @@
-import {FILTER_SELECT_ARTICLE} from '../typesConstants';
-import {FILTER_DATE_ARTICLE} from '../typesConstants';
+import { FILTER_SELECT_ARTICLE, FILTER_DATE_ARTICLE, DELETE_ARTICLE } from '../typesConstants';
 
-export default (filtersState = {selectArticles: [], dateArticles: {}}, action) => {
-  const {type, payload} = action;
-  const newFilterState = Object.assign({}, filtersState);
+const defaultFilters = {
+  selectArticles: [],
+  dateArticles: {
+    from: null,
+    to: null
+  }
+};
+
+export default (filtersState = defaultFilters, action) => {
+  const { type, payload } = action;
 
   switch (type) {
     case FILTER_SELECT_ARTICLE:
-      newFilterState.selectArticles = [...payload.selectArticles];
-      return newFilterState;
+      return {...filtersState, selectArticles: payload.selectArticles};
 
     case FILTER_DATE_ARTICLE:
-      newFilterState.dateArticles = Object.assign({}, payload.dateArticles);
-      return newFilterState;
+      return {...filtersState, dateArticles: payload.dateArticles};
   }
 
   return filtersState;
