@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 import Article from './Article';
 import accordeon from '../../decorators/accordeon';
 import { connect } from 'react-redux';
-
-import { checkSelectedFilter } from '../Filters/MultiSelect';
-import { checkDateFilter } from '../Filters/Calendar';
+import { filterArticlesSelector } from '../../selectors';
 
 ArticleList.propTypes = {
   // from connect
@@ -34,11 +32,6 @@ function ArticleList({articles, openItemId, toggleOpen}) {
   )
 }
 
-export default connect(state => {
-  const { articles, filtersState: {selectArticles, dateArticles} } = state;
-  const filteredArticles = articles.filter(article => {
-    return checkSelectedFilter(selectArticles, article) && checkDateFilter(dateArticles, article);
-  });
-
-  return { articles: filteredArticles }
-})(accordeon(ArticleList));
+export default connect(state => (
+  { articles: filterArticlesSelector(state) }
+))(accordeon(ArticleList));
