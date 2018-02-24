@@ -9,14 +9,6 @@ import Helmet from 'react-helmet';
 import 'react-day-picker/lib/style.css';
 
 class Calendar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      from: undefined,
-      to: undefined,
-    };
-  };
-
   componentWillUnmount() {
     clearTimeout(this.timeout);
   };
@@ -26,7 +18,7 @@ class Calendar extends React.Component {
   };
 
   showFromMonth() {
-    const {from, to} = this.state;
+    const {from, to} = this.props.filtersState.dateArticles;
     if (!from) {
       return;
     }
@@ -36,25 +28,19 @@ class Calendar extends React.Component {
   };
 
   handleFromChange = (from) => {
-    this.setState({from}, () => {
-      if (!this.state.to) {
-        this.focusTo();
-      }
-    });
-    setTimeout(() => {
-      this.props.filterDateArticles(this.state);
-    });
+    this.props.filterDateArticles({from});
+    if (!this.props.filtersState.dateArticles.to) {
+      this.focusTo();
+    }
   };
 
   handleToChange = (to) => {
-    this.setState({to}, this.showFromMonth);
-    setTimeout(() => {
-      this.props.filterDateArticles(this.state);
-    });
+    this.props.filterDateArticles({to});
+    this.showFromMonth();
   };
 
   render() {
-    const {from, to} = this.state;
+    const {from, to} = this.props.filtersState.dateArticles;
     const modifiers = {start: from, end: to};
 
     return (

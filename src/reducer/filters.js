@@ -3,8 +3,8 @@ import { FILTER_SELECT_ARTICLE, FILTER_DATE_ARTICLE, DELETE_ARTICLE } from '../t
 const defaultFilters = {
   selectArticles: [],
   dateArticles: {
-    from: null,
-    to: null
+    from: undefined,
+    to: undefined
   }
 };
 
@@ -16,7 +16,12 @@ export default (filtersState = defaultFilters, action) => {
       return {...filtersState, selectArticles: payload.selectArticles};
 
     case FILTER_DATE_ARTICLE:
-      return {...filtersState, dateArticles: payload.dateArticles};
+      const newstate = {...filtersState};
+      newstate.dateArticles = Object.assign({...newstate.dateArticles}, payload.dateArticles);
+      return newstate;
+
+    case DELETE_ARTICLE:
+      return {...filtersState, selectArticles: filtersState.selectArticles.filter(article => article.value !== payload.id)}
   }
 
   return filtersState;
