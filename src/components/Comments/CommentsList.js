@@ -4,6 +4,8 @@ import CommentsListItems from './CommentsListItems';
 import AddCommentForm from './AddComentForm';
 import toggleOpen from '../../decorators/toggleOpen';
 
+import { connect } from 'react-redux';
+
 CommentsList.defaultProps = {
     comments: []
 };
@@ -30,7 +32,7 @@ function CommentsList({comments, isOpen, toggleOpen}) {
                     </button>
                     {isOpen && (
                         <ul>
-                            <CommentsListItems comments={comments}/>
+                            <CommentsListItems commentsId={comments}/>
                             <AddCommentForm/>
                         </ul>
                     )}
@@ -40,4 +42,4 @@ function CommentsList({comments, isOpen, toggleOpen}) {
     )
 }
 
-export default toggleOpen(CommentsList);
+export default toggleOpen(CommentsList)

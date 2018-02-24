@@ -3,13 +3,13 @@ import PropTypes from 'prop-types';
 import Comment from './Comment';
 
 CommentsListItems.propTypes = {
-  comments: PropTypes.array.isRequired
+  commentsId: PropTypes.array.isRequired
 };
 
-function CommentsListItems({comments}) {
-  const commentsListItems = comments.map(comment => (
-    <li key = {comment.id}>
-      <Comment comment = {comment} />
+function CommentsListItems({commentsId}) {
+  const commentsListItems = commentsId.map(id => (
+    <li key = {id}>
+      <Comment id = {id} />
     </li>
   ));
 
