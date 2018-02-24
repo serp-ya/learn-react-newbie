@@ -6,19 +6,12 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
 class MultiSelect extends Component {
-  state = {
-    selection: null
-  };
-
   changeSelection = (selection) => {
-    this.setState({ selection });
-    setTimeout(() => {
-      this.props.filterSelectArticles(this.state.selection);
-    });
+    this.props.filterSelectArticles(selection);
   };
 
   render() {
-    const { selection } = this.state;
+    const selection = this.props.filtersState.selectArticles;
     const options = this.props.articles.map(article => ({
       label: article.title,
       value: article.id
