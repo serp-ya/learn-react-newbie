@@ -1,67 +1,94 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
+import { connect } from 'react-redux';
+import { addNewComment } from '../../ActionCreators';
 
-export default class AddCommentForm extends Component {
+class AddCommentForm extends Component {
 
-    state = {
-        title: '',
-        comment: ''
-    };
+  state = {
+    title: '',
+    comment: ''
+  };
 
-    changeHandler = (fieldName) => (event) => {
-        const { target } = event;
+  changeHandler = (fieldName) => (event) => {
+    const {target} = event;
 
-        this.setState({
-            [fieldName]: target.value
-        });
+    this.setState({
+      [fieldName]: target.value
+    });
 
-        if (!this.validationRules[fieldName].length(target.value)) {
-            target.style.backgroundColor = '#ffb7b7';
-        } else {
-            target.style.backgroundColor = 'inherit';
-        }
-    };
+    if (!this.validationRules[fieldName].length(target.value)) {
+      target.style.backgroundColor = '#ffb7b7';
+    } else {
+      target.style.backgroundColor = 'inherit';
+    }
 
-    validationRules = {
-        'title': {
-            'length': (title) => (title.length >= 5 && title.length <= 15) || title.length === 0
-        },
-        'comment': {
-            'length': (comment) => (comment.length >= 20 && comment.length <= 50) || comment.length === 0
-        }
-    };
+    setTimeout(() => {
+      this.submitBtn.disabled = !this.isValidForSubmit();
+    });
+  };
 
-    render() {
-        const { title, comment } = this.state;
+  isValidForSubmit = () => {
+    return Object.keys(this.state).every(field => {
+      return this.validationRules[field].submit(this.state[field])
+    })
+  };
 
-        return (
-            <form>
-                <fieldset>
+  addNewComment = (event) => {
+    event.preventDefault();
+    const { title, comment } = this.state;
+    this.props.addNewComment(this.props.articleId, title, comment);
 
-                    <div>
-                        <label>
-                            You're name: <br />
-                            <input
-                                type = "text" value = {title}
-                                onChange = {this.changeHandler('title')}
-                            />
-                        </label>
-                    </div>
+    this.setState({
+      title: '',
+      comment: ''
+    });
+  };
 
-                    <div>
-                        <label>
-                            You're comment: <br />
-                            <textarea
-                                value = {comment}
-                                onChange = {this.changeHandler('comment')}
-                            ></textarea>
-                        </label>
-                    </div>
+  validationRules = {
+    'title': {
+      'length': (title) => (title.length >= 5 && title.length <= 15) || title.length === 0,
+      'submit':  (title) => title.length >= 5 && title.length <= 15
+    },
+    'comment': {
+      'length': (comment) => (comment.length >= 20 && comment.length <= 50) || comment.length === 0,
+      'submit': (comment) => comment.length >= 20 && comment.length <= 50
+    }
+  };
 
-                </fieldset>
+  render() {
+    const {title, comment} = this.state;
 
-                <input type = "submit" value = "Добавить комментарий" />
+    return (
+      <form onSubmit={this.addNewComment}>
+        <fieldset>
 
-            </form>
-        );
-    };
+          <div>
+            <label>
+              You're name: <br/>
+              <input
+                type="text" value={title}
+                onChange={this.changeHandler('title')}
+              />
+            </label>
+          </div>
+
+          <div>
+            <label>
+              You're comment: <br/>
+              <textarea
+                value={comment}
+                onChange={this.changeHandler('comment')}
+              ></textarea>
+            </label>
+          </div>
+
+        </fieldset>
+
+        <input ref = {submitBtn => this.submitBtn = submitBtn} type="submit" value="Добавить комментарий" disabled/>
+
+      </form>
+    );
+  };
 };
+
+export default connect(null, { addNewComment })(AddCommentForm);

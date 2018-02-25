@@ -14,14 +14,14 @@ CommentsList.propTypes = {
   comments: PropTypes.array
 };
 
-function CommentsList({comments, isOpen, toggleOpen}) {
+function CommentsList({articleId, comments, isOpen, toggleOpen}) {
   return (
     <div>
 
       {!comments.length && (
         <div>
           <p>Have no any comments</p>
-          <AddCommentForm/>
+          <AddCommentForm articleId = {articleId} />
         </div>
       )}
 
@@ -32,8 +32,8 @@ function CommentsList({comments, isOpen, toggleOpen}) {
           </button>
           {isOpen && (
             <ul>
-              <CommentsListItems commentsId={comments}/>
-              <AddCommentForm/>
+              <CommentsListItems commentsId = {comments}/>
+              <AddCommentForm articleId = {articleId} />
             </ul>
           )}
         </div>

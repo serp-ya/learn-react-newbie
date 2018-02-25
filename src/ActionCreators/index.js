@@ -1,4 +1,10 @@
-import {INCREMENT, DELETE_ARTICLE, FILTER_DATE_ARTICLE, FILTER_SELECT_ARTICLE} from '../typesConstants';
+import {
+  INCREMENT,
+  DELETE_ARTICLE,
+  FILTER_DATE_ARTICLE,
+  FILTER_SELECT_ARTICLE,
+  ADD_NEW_COMMENT
+} from '../typesConstants';
 
 export function increment() {
   return {
@@ -24,5 +30,12 @@ export function filterSelectArticles(selectArticles) {
   return {
     type: FILTER_SELECT_ARTICLE,
     payload: {selectArticles}
+  };
+}
+
+export function addNewComment(articleId, user, text) {
+  return {
+    type: ADD_NEW_COMMENT,
+    payload: {articleId, user, text}
   };
 }

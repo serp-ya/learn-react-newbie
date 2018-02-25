@@ -48,7 +48,7 @@ class Article extends PureComponent{
                     {isOpen && (
                         <section>
                             {text}
-                            <CommentsList comments = {comments}/>
+                            <CommentsList articleId = {article.id} comments = {comments}/>
                         </section>
                     )}
                 </CSSTransitionGroup>
