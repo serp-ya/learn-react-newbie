@@ -7,7 +7,13 @@ const articleGetter = state => state.articles;
 
 export default createSelector(filtersGetter, articleGetter, (filters, articles) => {
   const {selectArticles, dateArticles} = filters;
-  return articles.filter(article => {
-    return checkSelectedFilter(selectArticles, article) && checkDateFilter(dateArticles, article);
-  });
+  return Object.keys(articles).reduce((result, articleId) => {
+    const article = articles[articleId];
+    if (checkSelectedFilter(selectArticles, article)
+    && checkDateFilter(dateArticles, article)) {
+      result[articleId] = article;
+    }
+
+    return result;
+  }, {});
 });

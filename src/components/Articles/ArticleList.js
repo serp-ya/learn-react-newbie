@@ -7,7 +7,7 @@ import selectors from '../../selectors';
 
 ArticleList.propTypes = {
   // from connect
-  articles: PropTypes.array.isRequired,
+  articles: PropTypes.object.isRequired,
 
   // from accordeon
   openItemId: PropTypes.string,
@@ -15,12 +15,12 @@ ArticleList.propTypes = {
 };
 
 function ArticleList({articles, openItemId, toggleOpen}) {
-  const articleElements = articles.map(article =>
-    <li key={article.id}>
+  const articleElements = Object.keys(articles).map(articleId =>
+    <li key={articleId}>
       <Article
-        article={article}
-        toggleOpen={toggleOpen(article.id)}
-        isOpen={article.id === openItemId}
+        article={articles[articleId]}
+        toggleOpen={toggleOpen(articleId)}
+        isOpen={articleId === openItemId}
       />
     </li>
   );

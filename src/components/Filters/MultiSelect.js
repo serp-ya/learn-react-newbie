@@ -12,10 +12,11 @@ class MultiSelect extends Component {
   };
 
   render() {
+    const { articles } = this.props;
     const selection = this.props.filtersState.selectArticles;
-    const options = this.props.articles.map(article => ({
-      label: article.title,
-      value: article.id
+    const options = Object.keys(articles).map(articleId => ({
+      label: articles[articleId].title,
+      value: articleId
     }));
 
     return (
