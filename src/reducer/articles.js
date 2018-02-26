@@ -8,8 +8,10 @@ export default (articlesState = articlesMap, action) => {
   const {type, payload} = action;
 
   switch (type) {
-    case DELETE_ARTICLE:
-      return articlesState.filter(article => article.id !== payload.id);
+      case DELETE_ARTICLE:
+      const tempState = {...articlesState};
+      delete tempState[payload.id];
+      return tempState;
 
       case ADD_NEW_COMMENT:
         const { articleId, newCommentId } = payload;
