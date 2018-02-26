@@ -1,29 +1,37 @@
 import {DELETE_ARTICLE, ADD_NEW_COMMENT, LOAD_ALL_ARTICLES} from '../typesConstants';
 import { arrToMap } from '../helpers';
+import { OrderedMap, Record } from 'immutable';
 
-export default (articlesState = {}, action) => {
+const ArticleRecord = new Record({
+  text: '',
+  title: '',
+  id: '',
+  comments: []
+});
+
+const ReducerState = Record({
+  loading: false,
+  loaded: false,
+  entities: new OrderedMap({})
+});
+
+const defaultState = new ReducerState();
+
+export default (articlesState = defaultState, action) => {
   const {type, payload, response, randomId} = action;
 
   switch (type) {
     case DELETE_ARTICLE:
-      const tempState = {...articlesState};
-      delete tempState[payload.id];
-      return tempState;
+      return articlesState.deleteIn(['entities', payload.id]);
 
     case ADD_NEW_COMMENT:
-      const {articleId} = payload;
-      const article = articlesState[articleId];
-
-      return {
-        ...articlesState,
-        [articleId]: {
-          ...article,
-          comments: (article.comments || []).concat(randomId)
-        }
-      }
+      return articlesState.updateIn(
+        ['entities', payload.articleId, 'comments'],
+        comments => comments.concat(randomId)
+      );
 
     case LOAD_ALL_ARTICLES:
-      return arrToMap(response)
+      return articlesState.set('entities', arrToMap(response, ArticleRecord));
   }
 
   return articlesState;

@@ -10,7 +10,7 @@ class ArticleList extends Component {
 
   static propTypes = {
       // from connect
-      articles: PropTypes.object.isRequired,
+      articles: PropTypes.array.isRequired,
 
       // from accordeon
       openItemId: PropTypes.string,

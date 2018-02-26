@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Counter from './Counter';
 import Calendar from './Calendar';
 import MultiSelect from './MultiSelect';
+import { mapToArr } from '../../helpers';
 
 function Filters({ articles }) {
     return (
@@ -15,5 +16,5 @@ function Filters({ articles }) {
 }
 
 export default connect(state => (
-  { articles: state.articles }
+  { articles: mapToArr(state.articles.entities) }
 ))(Filters);
