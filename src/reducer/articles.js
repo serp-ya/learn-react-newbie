@@ -5,7 +5,7 @@ import { arrToMap } from '../helpers';
 const articlesMap = arrToMap(defaultArticles);
 
 export default (articlesState = articlesMap, action) => {
-  const {type, payload} = action;
+  const {type, payload, randomId} = action;
 
   switch (type) {
       case DELETE_ARTICLE:
@@ -14,14 +14,14 @@ export default (articlesState = articlesMap, action) => {
       return tempState;
 
       case ADD_NEW_COMMENT:
-        const { articleId, newCommentId } = payload;
+        const { articleId } = payload;
         const article = articlesState[articleId];
 
         return {
           ...articlesState,
           [articleId]: {
             ...article,
-            comments: (article.comments || []).concat(newCommentId)
+            comments: (article.comments || []).concat(randomId)
           }
         }
   }

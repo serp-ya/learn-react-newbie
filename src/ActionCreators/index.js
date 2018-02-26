@@ -36,6 +36,7 @@ export function filterSelectArticles(selectArticles) {
 export function addNewComment(articleId, user, text) {
   return {
     type: ADD_NEW_COMMENT,
-    payload: {articleId, user, text}
+    payload: {articleId, user, text},
+    generateId: true
   };
 }

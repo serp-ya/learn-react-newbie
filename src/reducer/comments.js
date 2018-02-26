@@ -5,16 +5,14 @@ import { arrToMap } from '../helpers';
 const commentsMap = arrToMap(defaultComments);
 
 export default (commentsState = commentsMap, action) => {
-  const {type, payload} = action;
+  const {type, payload, randomId} = action;
 
   switch (type) {
     case ADD_NEW_COMMENT:
-      const { newCommentId, user, text } = payload;
-      const newComment = commentsFactory(newCommentId, user, text);
-      commentsState[newCommentId] = newComment;
+      const { user, text } = payload;
+      const newComment = commentsFactory(randomId, user, text);
+      commentsState[randomId] = newComment;
       return commentsState;
-      console.log('payload', payload);
-      console.log('newComment', newComment);
   }
 
   return commentsState;
