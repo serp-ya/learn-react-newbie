@@ -3,7 +3,8 @@ import {
   DELETE_ARTICLE,
   FILTER_DATE_ARTICLE,
   FILTER_SELECT_ARTICLE,
-  ADD_NEW_COMMENT
+  ADD_NEW_COMMENT,
+  LOAD_ALL_ARTICLES
 } from '../typesConstants';
 
 export function increment() {
@@ -39,4 +40,11 @@ export function addNewComment(articleId, user, text) {
     payload: {articleId, user, text},
     generateId: true
   };
+}
+
+export function loadAllArticles() {
+    return {
+        type: LOAD_ALL_ARTICLES,
+        callAPI: '/api/article'
+    }
 }

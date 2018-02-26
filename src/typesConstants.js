@@ -1,3 +1,6 @@
+// API
+export const LOAD_ALL_ARTICLES = 'LOAD_ALL_ARTICLES';
+
 // Counter
 export const INCREMENT = 'INCREMENT';
 

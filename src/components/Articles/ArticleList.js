@@ -1,37 +1,46 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Article from './Article';
 import accordeon from '../../decorators/accordeon';
 import { connect } from 'react-redux';
 import selectors from '../../selectors';
+import { loadAllArticles } from '../../ActionCreators';
 
-ArticleList.propTypes = {
-  // from connect
-  articles: PropTypes.object.isRequired,
+class ArticleList extends Component {
 
-  // from accordeon
-  openItemId: PropTypes.string,
-  toggleOpen: PropTypes.func
-};
+  static propTypes = {
+      // from connect
+      articles: PropTypes.object.isRequired,
 
-function ArticleList({articles, openItemId, toggleOpen}) {
-  const articleElements = Object.keys(articles).map(articleId =>
-    <li key={articleId}>
-      <Article
-        article={articles[articleId]}
-        toggleOpen={toggleOpen(articleId)}
-        isOpen={articleId === openItemId}
-      />
-    </li>
-  );
+      // from accordeon
+      openItemId: PropTypes.string,
+      toggleOpen: PropTypes.func
+  };
 
-  return (
-    <ul>
-      {articleElements}
-    </ul>
-  )
+  componentDidMount() {
+    this.props.loadAllArticles();
+  }
+
+  render() {
+    const {articles, openItemId, toggleOpen} = this.props;
+    const articleElements = Object.keys(articles).map(articleId =>
+      <li key={articleId}>
+        <Article
+          article={articles[articleId]}
+          toggleOpen={toggleOpen(articleId)}
+          isOpen={articleId === openItemId}
+        />
+      </li>
+    );
+
+    return (
+      <ul>
+        {articleElements}
+      </ul>
+    )
+  }
 }
 
 export default connect(state => (
   { articles: selectors.filterArticles(state) }
-))(accordeon(ArticleList));
+), { loadAllArticles })(accordeon(ArticleList));
