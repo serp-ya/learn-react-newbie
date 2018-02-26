@@ -13,12 +13,17 @@ export default (articlesState = articlesMap, action) => {
     case DELETE_ARTICLE:
       return articlesState.filter(article => article.id !== payload.id);
 
-    case ADD_NEW_COMMENT:
-      const { articleId, newCommentId } = payload;
-      const newState = {...articlesState};
-      const newStateArticle = newState[articleId];
-      newStateArticle.comments = newStateArticle.comments ? [...newStateArticle.comments, newCommentId] : [newCommentId];
-      return newState;
+      case ADD_NEW_COMMENT:
+        const { articleId, newCommentId } = payload;
+        const article = articlesState[articleId];
+
+        return {
+          ...articlesState,
+          [articleId]: {
+            ...article,
+            comments: (article.comments || []).concat(newCommentId)
+          }
+        }
   }
 
   return articlesState;
