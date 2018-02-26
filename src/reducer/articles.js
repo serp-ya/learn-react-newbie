@@ -1,4 +1,11 @@
-import {DELETE_ARTICLE, ADD_NEW_COMMENT, LOAD_ALL_ARTICLES} from '../typesConstants';
+import {
+  DELETE_ARTICLE,
+  ADD_NEW_COMMENT,
+  LOAD_ALL_ARTICLES,
+  START,
+  SUCCESS,
+  FAIL
+} from '../typesConstants';
 import { arrToMap } from '../helpers';
 import { OrderedMap, Record } from 'immutable';
 
@@ -30,8 +37,14 @@ export default (articlesState = defaultState, action) => {
         comments => comments.concat(randomId)
       );
 
-    case LOAD_ALL_ARTICLES:
-      return articlesState.set('entities', arrToMap(response, ArticleRecord));
+    case LOAD_ALL_ARTICLES + START:
+      return articlesState.set('loading', true);
+
+    case LOAD_ALL_ARTICLES + SUCCESS:
+      return articlesState
+        .set('entities', arrToMap(response, ArticleRecord))
+        .set('loading', false)
+        .set('loaded', true);
   }
 
   return articlesState;
