@@ -2,8 +2,9 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CommentsList from '../Comments/CommentsList';
+import Loader from '../Loader';
 import { CSSTransitionGroup } from 'react-transition-group';
-import { deleteArticle } from '../../ActionCreators/index';
+import { deleteArticle, loadArticle } from '../../ActionCreators/index';
 
 import './article.animation.css';
 
@@ -19,6 +20,12 @@ class Article extends PureComponent{
         toggleOpen: PropTypes.func
     };
 
+    componentWillReceiveProps({isOpen, loadArticle, article}) {
+      if (!this.props.isOpen && isOpen && !article.text && !article.loading) {
+        loadArticle(article.id);
+      }
+    };
+
     handleDelete = () => {
         const { deleteArticle, article } = this.props;
         deleteArticle(article.id);
@@ -27,6 +34,10 @@ class Article extends PureComponent{
     render() {
         const {article, isOpen, toggleOpen} = this.props;
         const {title, text, comments} = article;
+
+        if (article.loading) {
+          return <Loader />
+        }
 
         return (
             <div>
@@ -57,4 +68,4 @@ class Article extends PureComponent{
     }
 }
 
-export default connect(null, { deleteArticle })(Article)
+export default connect(null, { deleteArticle, loadArticle })(Article)

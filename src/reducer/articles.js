@@ -4,7 +4,8 @@ import {
   LOAD_ALL_ARTICLES,
   START,
   SUCCESS,
-  FAIL
+  FAIL,
+  LOAD_ARTICLE
 } from '../typesConstants';
 import { arrToMap } from '../helpers';
 import { OrderedMap, Record } from 'immutable';
@@ -13,6 +14,7 @@ const ArticleRecord = new Record({
   text: '',
   title: '',
   id: '',
+  loading: false,
   comments: []
 });
 
@@ -45,6 +47,12 @@ export default (articlesState = defaultState, action) => {
         .set('entities', arrToMap(response, ArticleRecord))
         .set('loading', false)
         .set('loaded', true);
+
+    case LOAD_ARTICLE + START:
+      return articlesState.setIn(['entities', payload.id, 'loading'], true);
+
+    case LOAD_ARTICLE + SUCCESS:
+      return articlesState.setIn(['entities', payload.id], new ArticleRecord(payload.response));
   }
 
   return articlesState;

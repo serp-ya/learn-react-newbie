@@ -8,7 +8,6 @@ const articleGetter = state => state.articles.entities;
 
 export default createSelector(filtersGetter, articleGetter, (filters, articles) => {
   const {selectArticles, dateArticles} = filters;
-  console.log('kek')
 
   return mapToArr(articles).reduce((result, article) => {
     if (checkSelectedFilter(selectArticles, article) && checkDateFilter(dateArticles, article)) {
